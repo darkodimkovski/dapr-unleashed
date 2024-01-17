@@ -1,0 +1,25 @@
+{
+  "profiles": {
+    "DaprUnleashed.API": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:51035;http://localhost:51036"
+    },
+    "Docker": {
+      "commandName": "Docker",
+      "launchBrowser": true,
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
+      "publishAllPorts": true,
+      "useSSL": true
+    },
+    "dapr": {
+      "commandName": "Executable",
+      "executablePath": "C:\\dapr\\dapr.exe",
+      "commandLineArgs": "run --app-id API --resources-path ../../components dotnet run",
+      "workingDirectory": "C:\\Users\\darko\\OneDrive\\Desktop\\dapr-unleashed\\source\\DaprUnleashed.IngestionService"
+    }
+  }
+}

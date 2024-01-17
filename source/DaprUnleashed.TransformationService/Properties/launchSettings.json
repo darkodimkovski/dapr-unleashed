@@ -1,0 +1,18 @@
+{
+  "profiles": {
+    "DaprUnleashed.TransformationService": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:57261;http://localhost:57262"
+    },
+    "dapr": {
+      "commandName": "Executable",
+      "executablePath": "C:\\dapr\\dapr.exe",
+      "commandLineArgs": "run --app-id transfor --resources-path ../../components dotnet run",
+      "workingDirectory": "C:\\Users\\darko\\OneDrive\\Desktop\\dapr-unleashed\\source\\DaprUnleashed.TransformationService"
+    }
+  }
+}

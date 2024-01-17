@@ -1,0 +1,86 @@
+version: '3'
+services:
+  ingestion:
+    build: ./source/DaprUnleashed.IngestionService
+    ports:
+      - "50001:50001"
+    networks:
+      - dapr-unleashed
+    depends_on:
+      - placement
+
+  extraction:
+    build: ./source/DaprUnleashed.ExtractionService
+    ports:
+      - "50002:50002"
+    networks:
+      - dapr-unleashed
+    depends_on:
+      - placement
+      - ingestion
+
+  transformation:
+    build: ./source/DaprUnleashed.TransformationService
+    ports:
+      - "50003:50003"
+    networks:
+      - dapr-unleashed
+    depends_on:
+      - extraction
+      - placement
+
+  dapr-ingestion:
+    image: "daprio/daprd:edge"
+    command: [
+      "./daprd",
+      "--app-id", "ingestion",
+      "--app-port", "7001",
+      "--placement-host-address", "placement:50006",
+      "--resources-path", "./components"
+    ]
+    volumes:
+      - "./components/:/components"
+    depends_on:
+      - ingestion
+    network_mode: "service:ingestion"
+
+  dapr-extraction:
+    image: "daprio/daprd:edge"
+    command: [
+      "./daprd",
+      "--app-id", "extraction",
+      "--app-port", "7002",
+      "--placement-host-address", "placement:50006",
+      "--resources-path", "./components"
+    ]
+    volumes:
+      - "./components/:/components"
+    depends_on:
+      - extraction
+    network_mode: "service:extraction"
+
+  dapr-transformation:
+    image: "daprio/daprd:edge"
+    command: [
+      "./daprd",
+      "--app-id", "transformation",
+      "--app-port", "7003",
+      "--placement-host-address", "placement:50006",
+      "--resources-path", "./components"
+    ]
+    volumes:
+      - "./components/:/components"
+    depends_on:
+      - transformation
+    network_mode: "service:transformation"
+
+  placement:
+    image: "daprio/dapr"
+    command: ["./placement", "--port", "50006"]
+    ports:
+      - "50006:50006"
+    networks:
+      - dapr-unleashed
+
+networks:
+  dapr-unleashed:

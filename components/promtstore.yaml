@@ -7,7 +7,7 @@ spec:
   version: v1
   metadata:
   - name: url
-    value: https://dapr-unleashed-cosmosdb-dev.documents.azure.com:443/
+    value: https://demo-daprunleashed-cdb.documents.azure.com:443/
   - name: masterKey
     secretKeyRef:
         name: dapr-unleashed-cosmosdb-dev-key
