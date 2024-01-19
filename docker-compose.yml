@@ -3,26 +3,23 @@ version: '3.4'
 services:
   daprunleashed-api:
     image: ${DOCKER_REGISTRY-}daprunleashedapi
-    ports:
-      - "50001:50001"
-      - "16001:80"
-      - "16002:443"
     depends_on:
       - placement
     build:
       context: .
       dockerfile: source/DaprUnleashed.IngestionService/Dockerfile
-    networks:
-      - dapr-unleashed
 
  
   daprunleashed-api-dapr:
     image: "daprio/daprd:edge"
-    command: ["./daprd",
+    command: [
+     "./daprd",
      "-app-id", "daprunleashed-api",
      "-app-port", "80",
+     "-dapr-http-port", "3501",
+     "-dapr-grpc-port", "50001",
      "-placement-host-address", "placement:50006",
-     "-components-path", "/components",
+     "--resources-path", "/components",
      "-config", "/configuration/collector-config.yaml"]
     volumes:
         - "./components/:/components"
@@ -32,27 +29,22 @@ services:
     network_mode: "service:daprunleashed-api"
  
   daprunleashed-extractionservice:
-    ports:
-      - "50002:50001"
-      - "16003:80"
-      - "16004:443"
     image: ${DOCKER_REGISTRY-}daprunleashedextractionservice
     depends_on:
       - placement
     build:
       context: .
       dockerfile: source/DaprUnleashed.ExtractionService/Dockerfile
-    networks:
-      - dapr-unleashed
  
   daprunleashed-extractionservice-dapr:
     image: "daprio/daprd:edge"
     command: ["./daprd",
      "-app-id", "daprunleashed-extractionservice",
      "-app-port", "80",
+     "-dapr-http-port", "3502",
      "-placement-host-address", "placement:50006",
      "-dapr-grpc-port", "50002",
-     "-components-path", "/components",
+     "--resources-path", "/components",
      "-config", "/configuration/collector-config.yaml"]
     volumes:
         - "./components/:/components"
@@ -62,23 +54,22 @@ services:
     network_mode: "service:daprunleashed-extractionservice"
  
   daprunleashed-transformationservice:
-    ports:
-      - "50003:50001"
-      - "16005:80"
-      - "16006:443"
     image: ${DOCKER_REGISTRY-}daprunleashedtransformationservice
+    depends_on:
+      - placement
     build:
       context: .
       dockerfile: source/DaprUnleashed.TransformationService/Dockerfile
-    networks:
-      - dapr-unleashed
+
   daprunleashed-transformationservice-dapr:
     image: "daprio/daprd:edge"
     command: ["./daprd",
      "-app-id", "daprunleashed-transformationservice",
      "-app-port", "80",
+     "-dapr-http-port", "3503",
+     "-dapr-grpc-port", "50003",
      "-placement-host-address", "placement:50006",
-     "-components-path", "/components",
+     "--resources-path", "/components",
      "-config", "/configuration/collector-config.yaml"]
     volumes:
         - "./components/:/components"
@@ -104,16 +95,12 @@ services:
     volumes:
       - "./components/:/components"
       - "./docker-compose.yml:/docker-compose.yml"
-    networks:
-      - dapr-unleashed
  
  
   zipkin:
     image: openzipkin/zipkin-slim:latest
     ports:
       - "5411:9411"
-    networks:
-      - dapr-unleashed
  
   otel:
     image: otel/opentelemetry-collector-contrib-dev:latest
@@ -121,5 +108,3 @@ services:
     volumes:
      - "./configuration/:/configuration"
  
-networks:
-    dapr-unleashed:
