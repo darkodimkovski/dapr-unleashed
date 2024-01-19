@@ -1,0 +1,16 @@
+apiVersion: dapr.io/v1alpha1
+kind: Component
+metadata:
+  name: azurekeyvault
+spec:
+  type: secretstores.azure.keyvault
+  version: v1
+  metadata:
+  - name: vaultName
+    value: "demo-daprunleashed-kv"
+  - name: azureTenantId
+    value: "035b20a1-9b1d-4c2f-86f0-d872d8b23919"
+  - name: azureClientId
+    value: "d1c07fd0-081c-4f07-85c2-c4d0f9ab8fd5"
+  - name: azureClientSecret
+    value : "1PZ8Q~u499fE2P5drRp6s7K7k4q7QzjGYD5J9aWt"
