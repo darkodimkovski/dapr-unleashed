@@ -14,13 +14,14 @@ services:
     image: "daprio/daprd:edge"
     command: [
      "./daprd",
-     "-app-id", "daprunleashed-api",
-     "-app-port", "80",
-     "-dapr-http-port", "3501",
-     "-dapr-grpc-port", "50001",
-     "-placement-host-address", "placement:50006",
+     "--app-id", "daprunleashed-api",
+     "--app-port", "80",
+     "--dapr-http-port", "3501",
+     "--dapr-grpc-port", "50001",
+     "--placement-host-address", "placement:50006",
      "--resources-path", "/components",
-     "-config", "/configuration/collector-config.yaml"]
+     "--config", "/configuration/collector-config.yaml"]
+
     volumes:
         - "./components/:/components"
         - "./configuration/:/configuration"
@@ -39,13 +40,13 @@ services:
   daprunleashed-extractionservice-dapr:
     image: "daprio/daprd:edge"
     command: ["./daprd",
-     "-app-id", "daprunleashed-extractionservice",
-     "-app-port", "80",
-     "-dapr-http-port", "3502",
-     "-placement-host-address", "placement:50006",
-     "-dapr-grpc-port", "50002",
+     "--app-id", "daprunleashed-extractionservice",
+     "--app-port", "80",
+     "--dapr-http-port", "3502",
+     "--placement-host-address", "placement:50006",
+     "--dapr-grpc-port", "50002",
      "--resources-path", "/components",
-     "-config", "/configuration/collector-config.yaml"]
+     "--config", "/configuration/collector-config.yaml"]
     volumes:
         - "./components/:/components"
         - "./configuration/:/configuration"
@@ -64,13 +65,13 @@ services:
   daprunleashed-transformationservice-dapr:
     image: "daprio/daprd:edge"
     command: ["./daprd",
-     "-app-id", "daprunleashed-transformationservice",
-     "-app-port", "80",
-     "-dapr-http-port", "3503",
-     "-dapr-grpc-port", "50003",
-     "-placement-host-address", "placement:50006",
+     "--app-id", "daprunleashed-transformationservice",
+     "--app-port", "80",
+     "--dapr-http-port", "3503",
+     "--dapr-grpc-port", "50003",
+     "--placement-host-address", "placement:50006",
      "--resources-path", "/components",
-     "-config", "/configuration/collector-config.yaml"]
+     "--config", "/configuration/collector-config.yaml"]
     volumes:
         - "./components/:/components"
         - "./configuration/:/configuration"
