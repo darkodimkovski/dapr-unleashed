@@ -22,8 +22,8 @@ services:
      "-app-id", "daprunleashed-api",
      "-app-port", "80",
      "-placement-host-address", "placement:50006",
-     "-resources-path", "/components",
-     "-config", "/configuration/collector-config.yaml"]
+     "-resources-path", "/components"
+     ]
     volumes:
         - "./components/:/components"
         - "./configuration/:/configuration"
@@ -52,8 +52,8 @@ services:
      "-app-port", "80",
      "-placement-host-address", "placement:50006",
      "-dapr-grpc-port", "50002",
-     "-resources-path", "/components",
-     "-config", "/configuration/collector-config.yaml"]
+     "-resources-path", "/components"
+     ]
     volumes:
         - "./components/:/components"
         - "./configuration/:/configuration"
@@ -78,8 +78,8 @@ services:
      "-app-id", "daprunleashed-transformationservice",
      "-app-port", "80",
      "-placement-host-address", "placement:50006",
-     "-resources-path", "/components",
-     "-config", "/configuration/collector-config.yaml"]
+     "-resources-path", "/components"
+     ]
     volumes:
         - "./components/:/components"
         - "./configuration/:/configuration"
@@ -96,9 +96,9 @@ services:
   dapr-dashboard:
     image: "daprio/dashboard:latest"
     command: [ "--docker-compose=true", 
-      "--resources-path=/components", 
+      "--component-path=/components", 
       "--config-path=/configuration", 
-      "--docker-compose-path=/docker-compose.yml" ]
+      "--docker-compose-path=/docker-compose.yml"]
     ports:
       - "8080:8080"
     volumes:
