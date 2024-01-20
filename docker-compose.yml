@@ -96,7 +96,7 @@ services:
   dapr-dashboard:
     image: "daprio/dashboard:latest"
     command: [ "--docker-compose=true", 
-      "--component-path=/components", 
+      "--components-path=/components", 
       "--config-path=/configuration", 
       "--docker-compose-path=/docker-compose.yml"]
     ports:
