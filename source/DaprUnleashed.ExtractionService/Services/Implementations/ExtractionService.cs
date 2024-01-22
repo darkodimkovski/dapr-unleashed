@@ -17,7 +17,7 @@ namespace DaprUnleashed.ExtractionService.Services.Implementations
         {
             var metadata = new Dictionary<string, string> { { "partitionKey", queueRequest.Type } };
 
-            var promt = await _daprClient.GetStateAsync<Promt>("promtstore", queueRequest.Id.ToString(), metadata: metadata);
+            var promt = await _daprClient.GetStateAsync<Promt>("promptstore", queueRequest.Id.ToString(), metadata: metadata);
             promt.StateTransitions.Add(new StateTransition { State = "7. Start to extract", DateTime = DateTime.UtcNow });
 
             //call Azure OpenAI Services
@@ -25,7 +25,7 @@ namespace DaprUnleashed.ExtractionService.Services.Implementations
 
             promt.StateTransitions.Add(new StateTransition { State = "8. Extraction finished", DateTime = DateTime.UtcNow });
             promt.StateTransitions.Add(new StateTransition() { State = "9. Save to storage", DateTime = DateTime.UtcNow });
-            await _daprClient.SaveStateAsync<Promt>("promtstore", promt.id.ToString(), promt, metadata: metadata);
+            await _daprClient.SaveStateAsync<Promt>("promptstore", promt.id.ToString(), promt, metadata: metadata);
         }
     }
 }

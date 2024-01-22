@@ -16,7 +16,7 @@ namespace DaprUnleashed.API.Services.Implementations
         public async Task<Promt> GetPromtAsync(Guid id, string type)
         {
             var metadata = new Dictionary<string, string> { { "partitionKey", type } };
-            return await _daprClient.GetStateAsync<Promt>("promtstore", id.ToString(), metadata: metadata);
+            return await _daprClient.GetStateAsync<Promt>("promptstore", id.ToString(), metadata: metadata);
         }
 
         public async Task ProcessAsync(Promt promt)
@@ -25,7 +25,7 @@ namespace DaprUnleashed.API.Services.Implementations
             promt.StateTransitions.Add(new StateTransition() { State = "1. Send to transform", DateTime = DateTime.UtcNow });
             promt.StateTransitions.Add(new StateTransition() { State = "2. Save to storage", DateTime = DateTime.UtcNow });
             var metadata = new Dictionary<string, string> { { "partitionKey", promt.Type } };
-            await _daprClient.SaveStateAsync("promtstore", promt.id.ToString(), promt, metadata: metadata);
+            await _daprClient.SaveStateAsync("promptstore", promt.id.ToString(), promt, metadata: metadata);
             await _daprClient.PublishEventAsync("pubsub", "transform", queueRequest);
         }
     }

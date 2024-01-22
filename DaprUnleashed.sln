@@ -20,6 +20,18 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "components", "components", 
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{9EE89784-D58E-4655-AB4D-8F20EACBF9DD}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "components_aca", "components_aca", "{D058B843-468E-40F0-9951-996BCEA04F6A}"
+	ProjectSection(SolutionItems) = preProject
+		components_aca\azurekeyvault.yaml = components_aca\azurekeyvault.yaml
+		components_aca\cosmosdb.yaml = components_aca\cosmosdb.yaml
+		components_aca\servicebus.yaml = components_aca\servicebus.yaml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{7491D99E-CD4E-4D4F-B3A0-0B5721F8D1CA}"
+	ProjectSection(SolutionItems) = preProject
+		scripts\containerapp.sh = scripts\containerapp.sh
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

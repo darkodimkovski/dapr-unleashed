@@ -1,7 +1,7 @@
 ﻿apiVersion: dapr.io/v1alpha1
 kind: Component
 metadata:
-  name: promtstore
+  name: promptstore
 spec:
   type: state.azure.cosmosdb
   version: v1
@@ -15,7 +15,7 @@ spec:
   - name: database
     value: dapr-unleashed-cosmosdb-dev
   - name: collection
-    value: promts
+    value: prompts
   - name: keyPrefix
     value: name
 

@@ -1,0 +1,12 @@
+componentType: pubsub.azure.servicebus
+version: v1
+metadata:
+  - name: connectionString
+    secretRef: sb-connectionstring
+secrets:
+  - name: sb-connectionstring
+    value: "Endpoint=sb://dapr-unleashed.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=ecmlEQPv8/LFP8aHwqxa/zlkuNRj76N8k+ASbBZSXow="
+scope:
+  - ingestion
+  - transformation
+  - extraction

@@ -16,7 +16,7 @@ namespace DaprUnleashed.TransformationService.Services.Implementations
         {
             var metadata = new Dictionary<string, string> { { "partitionKey", queueRequest.Type } };
 
-            var promt = await _daprClient.GetStateAsync<Promt>("promtstore", queueRequest.Id.ToString(),ConsistencyMode.Eventual,metadata);
+            var promt = await _daprClient.GetStateAsync<Promt>("promptstore", queueRequest.Id.ToString(),ConsistencyMode.Eventual,metadata);
             promt.StateTransitions.Add(new StateTransition { State = "3. Start to transform", DateTime = DateTime.UtcNow  });
 
             //call Azure Cognitive Services
@@ -25,7 +25,7 @@ namespace DaprUnleashed.TransformationService.Services.Implementations
             promt.StateTransitions.Add(new StateTransition { DateTime = DateTime.UtcNow, State = "4. Transform finished" });
             promt.StateTransitions.Add(new StateTransition() { State = "5. Save to storage", DateTime = DateTime.UtcNow });
             promt.StateTransitions.Add(new StateTransition() { State = "6. Send to extract", DateTime = DateTime.UtcNow });
-            await _daprClient.SaveStateAsync("promtstore", promt.id.ToString(), promt, metadata: metadata);
+            await _daprClient.SaveStateAsync("promptstore", promt.id.ToString(), promt, metadata: metadata);
             await _daprClient.PublishEventAsync("pubsub", "extract", queueRequest);
 
         }
