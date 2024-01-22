@@ -15,9 +15,9 @@ CONTAINERAPP_1="ingestion"
 CONTAINERAPP_2="transformation"
 CONTAINERAPP_3="extraction"
 REGISTRY_SERVER="demodaprunleashedacr.azurecr.io"
-IMAGE_1="{$REGISTRY_SERVER}/{$CONTAINERAPP_1}"
-IMAGE_2="{$REGISTRY_SERVER}/{$CONTAINERAPP_2}"
-IMAGE_3="{$REGISTRY_SERVER}/{$CONTAINERAPP_3}"
+IMAGE_1="demodaprunleashedacr.azurecr.io/daprunleashed-api:latest"
+IMAGE_2="demodaprunleashedacr.azurecr.io/daprunleashed-transformationservice:latest"
+IMAGE_3="demodaprunleashedacr.azurecr.io/daprunleashed-extractionservice:latest"
 
 LOG_ANALYTICS_WORKSPACE_ID="1607fba5-01e0-4c6c-b8e3-0691bda5f5a7"
 
@@ -26,7 +26,7 @@ az group create --name $RESOURCE_GROUP --location $LOCATION
 az containerapp env create --name $CONTAINERAPPS_ENVIRONMENT --resource-group $RESOURCE_GROUP --location "$LOCATION" --logs-workspace-id $LOG_ANALYTICS_WORKSPACE_ID
 
 # configure container apps
-az containerapp create -n $CONTAINERAPP_1 -g $RESOURCE_GROUP --environment $CONTAINERAPPS_ENVIRONMENT --ingress external --target-port 80 --enable-dapr true --registry-server $REGISTRY_SERVER --registry-identity system --image $IMAGE_1 --min-replicas 1 --max-replicas 1
+az containerapp create -n $CONTAINERAPP_1 -g $RESOURCE_GROUP --environment $CONTAINERAPPS_ENVIRONMENT --ingress external --target-port 443 --enable-dapr true --registry-server $REGISTRY_SERVER --registry-identity system --image $IMAGE_1 --min-replicas 1 --max-replicas 1 --dapr-app-port 443
 az containerapp create -n $CONTAINERAPP_2 -g $RESOURCE_GROUP --environment $CONTAINERAPPS_ENVIRONMENT --enable-dapr true --registry-server $REGISTRY_SERVER --registry-identity system --image $IMAGE_2 --min-replicas 1 --max-replicas 1
 az containerapp create -n $CONTAINERAPP_3 -g $RESOURCE_GROUP --environment $CONTAINERAPPS_ENVIRONMENT --enable-dapr true --registry-server $REGISTRY_SERVER --registry-identity system --image $IMAGE_3 --min-replicas 1 --max-replicas 1
 
