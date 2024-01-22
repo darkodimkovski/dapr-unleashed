@@ -115,11 +115,5 @@ services:
     networks:
       - dapr-unleashed
  
-  otel:
-    image: otel/opentelemetry-collector-contrib-dev:latest
-    command: [ "--config=/configuration/open-telemetry-collector-appinsights.yaml"]
-    volumes:
-     - "./configuration/:/configuration"
- 
 networks:
     dapr-unleashed:
