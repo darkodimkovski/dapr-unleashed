@@ -27,14 +27,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "components_aca", "component
 		components_aca\servicebus.yaml = components_aca\servicebus.yaml
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{C90A3935-A206-427B-A157-E452A751E9EB}"
-	ProjectSection(SolutionItems) = preProject
-		containerapp.sh = containerapp.sh
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docker-compose-aca", "docker-compose-aca", "{F33289C1-1815-4F52-83EF-1ED51B99CCFE}"
 	ProjectSection(SolutionItems) = preProject
 		docker-compose-aca.yml = docker-compose-aca.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2B886C6D-0BF2-4EDF-9485-845024FF00D4}"
+	ProjectSection(SolutionItems) = preProject
+		scripts\containerapp-compose.sh = scripts\containerapp-compose.sh
+		scripts\containerapp.sh = scripts\containerapp.sh
 	EndProjectSection
 EndProject
 Global
