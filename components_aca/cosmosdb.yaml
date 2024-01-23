@@ -2,7 +2,7 @@ componentType: state.azure.cosmosdb
 version: v1
 metadata:
   - name: url
-    value: https://daprdemoddi.documents.azure.com:443/
+    value: https://demo-daprunleashed-cdb.documents.azure.com:443/
   - name: database
     value: dapr-unleashed-cosmosdb-dev
   - name: collection
@@ -14,3 +14,4 @@ metadata:
 scopes:
   - transformation
   - extraction
+  - ingestion

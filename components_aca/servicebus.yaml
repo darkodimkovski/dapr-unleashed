@@ -6,7 +6,7 @@ metadata:
 secrets:
   - name: sb-connectionstring
     value: "Endpoint=sb://dapr-unleashed.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=ecmlEQPv8/LFP8aHwqxa/zlkuNRj76N8k+ASbBZSXow="
-scope:
+scopes:
   - ingestion
   - transformation
   - extraction
