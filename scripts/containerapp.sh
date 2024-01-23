@@ -27,17 +27,19 @@ az group create --name $RESOURCE_GROUP --location $LOCATION
 
 az containerapp env create --name $CONTAINERAPPS_ENVIRONMENT --resource-group $RESOURCE_GROUP --location "$LOCATION" --logs-workspace-id $LOG_ANALYTICS_WORKSPACE_ID
 
+#configure dapr components
+
+az containerapp env dapr-component set --name $CONTAINERAPPS_ENVIRONMENT --resource-group $RESOURCE_GROUP --dapr-component-name pubsub --yaml ../components_aca/servicebus.yaml
+
+az containerapp env dapr-component set --name $CONTAINERAPPS_ENVIRONMENT --resource-group $RESOURCE_GROUP --dapr-component-name promptstore --yaml ../components_aca/cosmosdb.yaml
+
+
 # configure container apps
 
 az containerapp create -n $CONTAINERAPP_1 -g $RESOURCE_GROUP --environment $CONTAINERAPPS_ENVIRONMENT --ingress external --target-port 80 --enable-dapr true --registry-server $REGISTRY_SERVER --registry-identity system --image $IMAGE_1 --min-replicas 1 --max-replicas 1
 az containerapp create -n $CONTAINERAPP_2 -g $RESOURCE_GROUP --environment $CONTAINERAPPS_ENVIRONMENT --enable-dapr true --registry-server $REGISTRY_SERVER --registry-identity system --image $IMAGE_2 --min-replicas 1 --max-replicas 1
 az containerapp create -n $CONTAINERAPP_3 -g $RESOURCE_GROUP --environment $CONTAINERAPPS_ENVIRONMENT --enable-dapr true --registry-server $REGISTRY_SERVER --registry-identity system --image $IMAGE_3 --min-replicas 1 --max-replicas 1
 
-#configure dapr components
-
-az containerapp env dapr-component set --name $CONTAINERAPPS_ENVIRONMENT --resource-group $RESOURCE_GROUP --dapr-component-name pubsub --yaml ../components_aca/servicebus.yaml
-
-az containerapp env dapr-component set --name $CONTAINERAPPS_ENVIRONMENT --resource-group $RESOURCE_GROUP --dapr-component-name promptstore --yaml ../components_aca/cosmosdb.yaml
 
 # Compose
 # az containerapp compose create --environment $CONTAINERAPPS_ENVIRONMENT --resource-group $RESOURCE_GROUP --location "$LOCATION" --compose-file-path ./docker-compose-aca.yml
