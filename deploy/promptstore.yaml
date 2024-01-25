@@ -1,0 +1,23 @@
+﻿apiVersion: dapr.io/v1alpha1
+kind: Component
+metadata:
+  name: promptstore
+spec:
+  type: state.azure.cosmosdb
+  version: v1
+  metadata:
+  - name: url
+    value: https://demo-daprunleashed-cdb.documents.azure.com:443/
+  - name: masterKey
+    secretKeyRef:
+        name: dapr-unleashed-cosmosdb-dev-key
+        key: dapr-unleashed-cosmosdb-dev-key
+  - name: database
+    value: dapr-unleashed-cosmosdb-dev
+  - name: collection
+    value: prompts
+  - name: keyPrefix
+    value: name
+
+auth:
+  secretStore: azurekeyvault

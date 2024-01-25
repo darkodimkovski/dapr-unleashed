@@ -1,0 +1,199 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: daprunleashed-ingress
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: ingestion-service
+            port: 
+              number: 80
+
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: ingestion-service
+  labels:
+    app: ingestion
+spec:
+  selector:
+    app: ingestion
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+  type: LoadBalancer
+
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: extraction-service
+  labels:
+    app: extraction
+spec:
+  selector:
+    app: extraction
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+  type: ClusterIP
+
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: transformation-service
+  labels:
+    app: transformation
+spec:
+  selector:
+    app: transformation
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+  type: ClusterIP
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ingestion-deployment
+  labels:
+    app: ingestion
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ingestion
+  template:
+    metadata:
+      labels:
+        app: ingestion
+      annotations:
+        dapr.io/enabled: "true"
+        dapr.io/app-id: "ingestion"
+        dapr.io/app-port: "80"
+        dapr.io/log-level: "debug"
+        dapr.io/sidecar-liveness-probe-delay-seconds: "60"
+    spec:
+      containers:
+        - name: ingestion
+          image: demodaprunleashedacr.azurecr.io/daprunleashed-api:daprunleashed
+          env:
+            - name: DAPR_HTTP_PORT
+              value: "3500"
+            - name: DAPR_GRPC_PORT
+              value: "50001"
+          readinessProbe:
+            tcpSocket:
+              port: 80
+            initialDelaySeconds: 60
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+          ports:
+            - containerPort: 80
+          imagePullPolicy: Always
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: extraction-deployment
+  labels:
+    app: extraction
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: extraction
+  template:
+    metadata:
+      labels:
+        app: extraction
+      annotations:
+        dapr.io/enabled: "true"
+        dapr.io/app-id: "extraction"
+        dapr.io/app-port: "80"
+        dapr.io/log-level: "debug"
+        dapr.io/sidecar-liveness-probe-delay-seconds: "60"
+    spec:
+      containers:
+        - name: extraction
+          image: demodaprunleashedacr.azurecr.io/daprunleashed-extractionservice:daprunleashed
+          env:
+            - name: DAPR_HTTP_PORT
+              value: "3500"
+            - name: DAPR_GRPC_PORT
+              value: "50001"
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+          ports:
+            - containerPort: 80
+          imagePullPolicy: Always
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: transformation-deployment
+  labels:
+    app: transformation
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: transformation
+  template:
+    metadata:
+      labels:
+        app: transformation
+      annotations:
+        dapr.io/enabled: "true"
+        dapr.io/app-id: "transformation"
+        dapr.io/app-port: "80"
+        dapr.io/log-level: "debug"
+        dapr.io/sidecar-liveness-probe-delay-seconds: "60"
+    spec:
+      containers:
+        - name: transformation
+          image: demodaprunleashedacr.azurecr.io/daprunleashed-transformationservice:daprunleashed
+          env:
+            - name: DAPR_HTTP_PORT
+              value: "3500"
+            - name: DAPR_GRPC_PORT
+              value: "50001"
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+          ports:
+            - containerPort: 80
+          imagePullPolicy: Always
