@@ -10,8 +10,8 @@ services:
     depends_on:
       - placement
     build:
-      context: ./source/DaprUnleashed.IngestionService
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: ./source/DaprUnleashed.IngestionService/Dockerfile
     networks:
       - dapr-unleashed
 
@@ -40,8 +40,8 @@ services:
     depends_on:
       - placement
     build:
-      context: ./source/DaprUnleashed.ExtractionService
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: ./source/DaprUnleashed.ExtractionService/Dockerfile
     networks:
       - dapr-unleashed
  
@@ -68,8 +68,8 @@ services:
       - "16006:443"
     image: ${DOCKER_REGISTRY-}daprunleashedtransformationservice
     build:
-      context: ./source/DaprUnleashed.TransformationService
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: ./source/DaprUnleashed.TransformationService/Dockerfile
     networks:
       - dapr-unleashed
   daprunleashed-transformationservice-dapr:

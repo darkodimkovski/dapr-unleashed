@@ -11,6 +11,8 @@ metadata:
     value: /partitionKey
   - name: masterkey
     value: pFTm2S0rv7A5CDtg4Ds58Dgj1YfbD3NVDIBXkCgx7B4i9PQctLiQX1weZpNyNK0P0Tv3vV6qlAPqACDbLomDYg==
+  - name: keyPrefix
+    value: name
 scopes:
   - transformation
   - extraction
