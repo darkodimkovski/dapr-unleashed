@@ -32,8 +32,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docker-compose-aca", "docke
 		docker-compose-aca.yml = docker-compose-aca.yml
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2B886C6D-0BF2-4EDF-9485-845024FF00D4}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{2B886C6D-0BF2-4EDF-9485-845024FF00D4}"
 	ProjectSection(SolutionItems) = preProject
+		scripts\aks-deploy.sh = scripts\aks-deploy.sh
 		scripts\containerapp-compose.sh = scripts\containerapp-compose.sh
 		scripts\containerapp.sh = scripts\containerapp.sh
 	EndProjectSection

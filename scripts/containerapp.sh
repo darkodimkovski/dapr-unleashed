@@ -15,9 +15,9 @@ CONTAINERAPP_1="ingestion"
 CONTAINERAPP_2="transformation"
 CONTAINERAPP_3="extraction"
 REGISTRY_SERVER="demodaprunleashedacr.azurecr.io"
-IMAGE_1="$REGISTRY_SERVER/daprunleashed-api:daprunleashed"
-IMAGE_2="$REGISTRY_SERVER/daprunleashed-extractionservice:daprunleashed"
-IMAGE_3="$REGISTRY_SERVER/daprunleashed-transformationservice:daprunleashed"
+IMAGE_1="$REGISTRY_SERVER/daprunleashedapi:latest"
+IMAGE_2="$REGISTRY_SERVER/daprunleashedtransformationservice:latest"
+IMAGE_3="$REGISTRY_SERVER/daprunleashedextractionservice:latest"
 
 LOG_ANALYTICS_WORKSPACE_ID="1607fba5-01e0-4c6c-b8e3-0691bda5f5a7"
 
