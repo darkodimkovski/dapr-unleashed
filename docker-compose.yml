@@ -4,7 +4,7 @@ services:
   daprunleashed-api:
     image: ${DOCKER_REGISTRY-}daprunleashedapi
     ports:
-      - "50001:50001"
+      - "50001:50001" # Dapr instances communicate over gRPC so we need to expose the gRPC port
       - "16001:80"
       - "16002:443"
     depends_on:
@@ -25,11 +25,11 @@ services:
      "-resources-path", "/components"
      ]
     volumes:
-        - "./components/:/components"
-        - "./configuration/:/configuration"
+        - "./components/:/components" # Mount our components folder for the runtime to use. The mounted location must match the --resources-path argument.
+        - "./configuration/:/configuration" # Mount configuration
     depends_on:
       - daprunleashed-api
-    network_mode: "service:daprunleashed-api"
+    network_mode: "service:daprunleashed-api" # Attach the sidecar to the app network namespace to enable communication over localhost
  
   daprunleashed-extractionservice:
     ports:

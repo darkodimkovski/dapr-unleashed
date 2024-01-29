@@ -31,13 +31,14 @@ dapr dashboard -k
 
 dapr status -k
 
-# Apply the components to have them auto-injected into application pods
+# Apply the components to make them available to the application pods
 
 kubectl apply -f ./deploy/pubsub.yaml
 
-kubectl create -f ./deploy/azurekeyvault.yaml
+kubectl apply -f ./deploy/azurekeyvault.yaml
 
 kubectl apply -f ./deploy/promptstore.yaml
 
-# Deploy the app to AKS
+# Deploy the app to AKS and auto-inject the daprd sidercar
 
+kubectl apply -f ./deploy/pdap-unleashed.yaml
