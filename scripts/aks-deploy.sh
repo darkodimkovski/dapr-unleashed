@@ -41,4 +41,4 @@ kubectl apply -f ./deploy/promptstore.yaml
 
 # Deploy the app to AKS and auto-inject the daprd sidercar
 
-kubectl apply -f ./deploy/pdap-unleashed.yaml
+kubectl apply -f ./deploy/dapr-unleashed.yaml

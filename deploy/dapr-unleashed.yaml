@@ -26,8 +26,13 @@ spec:
   selector:
     app: ingestion
   ports:
-  - protocol: TCP
+  - name: http
+    protocol: TCP
     port: 80
+    targetPort: 80
+  - name: https
+    protocol: TCP
+    port: 443
     targetPort: 80
   type: LoadBalancer
 
@@ -91,7 +96,7 @@ spec:
     spec:
       containers:
         - name: ingestion
-          image: demodaprunleashedacr.azurecr.io/daprunleashed-api:daprunleashed
+          image: demodaprunleashedacr.azurecr.io/ingestion:latest
           env:
             - name: DAPR_HTTP_PORT
               value: "3500"
@@ -138,7 +143,7 @@ spec:
     spec:
       containers:
         - name: extraction
-          image: demodaprunleashedacr.azurecr.io/daprunleashed-extractionservice:daprunleashed
+          image: demodaprunleashedacr.azurecr.io/extraction:latest
           env:
             - name: DAPR_HTTP_PORT
               value: "3500"
@@ -181,7 +186,7 @@ spec:
     spec:
       containers:
         - name: transformation
-          image: demodaprunleashedacr.azurecr.io/daprunleashed-transformationservice:daprunleashed
+          image: demodaprunleashedacr.azurecr.io/transformation:latest
           env:
             - name: DAPR_HTTP_PORT
               value: "3500"

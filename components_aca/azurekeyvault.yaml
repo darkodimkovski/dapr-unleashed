@@ -1,19 +1,12 @@
-apiVersion: dapr.io/v1alpha1
-kind: Component
+componentType: secretstores.azure.keyvault
+version: v1
 metadata:
-  name: azurekeyvault
-spec:
-  type: secretstores.azure.keyvault
-  version: v1
-  metadata:
   - name: vaultName # Required
     value: demo-daprunleashed-kv
   - name: azureEnvironment # Optional, defaults to AZUREPUBLICCLOUD
     value: "AZUREPUBLICCLOUD"
-  # See authentication section below for all options
-  - name: azureTenantId
-    value: "035b20a1-9b1d-4c2f-86f0-d872d8b23919"
-  - name: azureClientId
-    value: "d1c07fd0-081c-4f07-85c2-c4d0f9ab8fd5"
-  - name: azureClientSecret
-    value : "omk8Q~vwPsTuVHkLXeUzRD1xmUkq-VeXvkybMbm8"
+  # Using system assigned managed identity for auth
+scopes:
+  - ingestion
+  - transformation
+  - extraction

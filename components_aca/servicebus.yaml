@@ -1,12 +1,11 @@
-componentType: pubsub.azure.servicebus
+componentType: pubsub.azure.servicebus.queues
 version: v1
+secretStoreComponent: "azurekeyvault"
 metadata:
   - name: connectionString
-    secretRef: sb-connectionstring
-secrets:
-  - name: sb-connectionstring
-    value: "Endpoint=sb://dapr-unleashed.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=b8doF5ZCUvi+81/wYkNqw9RfusZNORRI3+ASbHwSvso="
+    secretRef: dapr-unleashed-sb-dev
 scopes:
   - ingestion
   - transformation
   - extraction
+  
